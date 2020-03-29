@@ -1,13 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
 import * as serviceWorker from './serviceWorker';
+import { BrowserRouter} from "react-router-dom";
+import { Provider } from 'react-redux';
+import { persistor, store } from 'src/store';
+import Layout from 'src/components/Layout';
+import { ToastContainer} from 'react-toastify';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "src/assets/css/nucleo-icons.css";
+import "src/assets/scss/blk-design-system-react.scss?v=1.0.0";
+import "src/assets/demo/demo.css";
+import "src/assets/css/custom.css";
+import 'react-toastify/dist/ReactToastify.css';
 
 ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+  
+  // <React.StrictMode>
+    <Provider store={store}>
+      <PersistGate loading={<h1>Carregando</h1>} persistor={persistor}>
+        <ToastContainer />
+        <BrowserRouter>   
+          <Layout/>
+        </BrowserRouter>
+      </PersistGate>
+    </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
 );
 
