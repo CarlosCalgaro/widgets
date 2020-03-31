@@ -4,9 +4,6 @@ import {toast} from 'react-toastify'
 import {
     Row,
     Col,
-    Pagination, 
-    PaginationItem, 
-    PaginationLink,
     InputGroup,
     InputGroupAddon,
     InputGroupText,
@@ -25,7 +22,7 @@ import chunk from 'src/utils/chunk'
  * TODO break this component in more components to make it easier 
  * to maintain
  */
-class WidgetsPagination extends React.Component {
+class VisibleWidgetsPagination extends React.Component {
 
     constructor(props) {
         super(props);
@@ -88,7 +85,7 @@ class WidgetsPagination extends React.Component {
             let {user} = widget
             widgets.push(
                 <Col xs="3" key={widget.id}>
-                    <Widget image={user.images.small_url} username={user.name} title={widget.name}>
+                    <Widget kind={widget.kind} userId={user.id} image={user.images.small_url} username={user.name} title={widget.name}>
                         {widget.description}
                     </Widget>
                 </Col>
@@ -126,35 +123,6 @@ class WidgetsPagination extends React.Component {
                 <Row>
                     {widgets}
                 </Row>
-                <div className="wrapper text-center">
-                <Pagination className="d-flex justify-content-center">
-                        <PaginationItem disabled>
-                            <PaginationLink href="#">
-                                Previous
-                            </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">
-                                1
-                            </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem active>
-                            <PaginationLink href="#">
-                                2
-                            </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">
-                                3
-                            </PaginationLink>
-                        </PaginationItem>
-                        <PaginationItem>
-                            <PaginationLink href="#">
-                                Next
-                            </PaginationLink>
-                        </PaginationItem>
-                    </Pagination>
-                </div>
             </div>            
         )
     }
@@ -178,4 +146,4 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(WidgetsPagination)
+export default connect(mapStateToProps, mapDispatchToProps)(VisibleWidgetsPagination)
