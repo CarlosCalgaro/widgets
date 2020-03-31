@@ -26,11 +26,11 @@ class RegisterForm extends React.Component {
             firstNameFocus: false,
             lastNameFocus: false,
             form: {
-                first_name: 'Carlos',
-                last_name: 'Calgaro',
-                email: 'carloscalgarof@gmail.com',
-                password: 'password',
-                password_confirmation: 'password',
+                first_name: '',
+                last_name: '',
+                email: '',
+                password: '',
+                password_confirmation: '',
             }
         }
         this.submit = this.submit.bind(this);
