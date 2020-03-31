@@ -5,12 +5,11 @@ import {
     DropdownMenu, 
     DropdownToggle } from 'reactstrap';
 import classnames from 'classnames';
-import ModalForm from 'src/components/ModalForm';
-import LoginForm from 'src/components/Forms/LoginForm';
 import {connect} from 'react-redux'
 import * as authenticationActions from 'src/store/actions/authentication'
 import Api from 'src/api'
 import { toast } from 'react-toastify';
+import {withRouter} from 'react-router-dom';
 
 class ProfileButton extends React.Component {
 
@@ -32,6 +31,7 @@ class ProfileButton extends React.Component {
             let body = response.body
             if(response.success){
                 toast.success("You have logged out successfully!")
+                this.props.history.push("/");
             }else{
                 toast.error(body.message)
             }
@@ -61,10 +61,8 @@ class ProfileButton extends React.Component {
     };
 
     render(){
-        let buttons = []
-
         return(
-            <UncontrolledDropdown nav>
+            <UncontrolledDropdown >
                 <DropdownToggle
                     aria-expanded={false}
                     aria-haspopup={true}
@@ -78,22 +76,13 @@ class ProfileButton extends React.Component {
                     Profile
                 </DropdownToggle>
                 <DropdownMenu aria-labelledby="navbarDropdownMenuLink">
-                    <DropdownItem
-                        className={this.loginButtonClasses("")}
-                        onClick={(e) => {this.toggleModal("formLogin")}}
-                        >
-                    Login
+                    <DropdownItem href="/me">
+                    Profile
                     </DropdownItem>
-                    <DropdownItem
-                        className={this.logoutButtonClasses("")}
-                        onClick={this.handleLogout}
-                        >
+                    <DropdownItem onClick={this.handleLogout}>
                     Logout
                     </DropdownItem>
                 </DropdownMenu>
-                <ModalForm open={this.state.formLogin}>
-                    <LoginForm></LoginForm>
-                </ModalForm>
             </UncontrolledDropdown>
         )
     }
@@ -116,4 +105,4 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-export default  connect(mapStateToProps, mapDispatchToProps)(ProfileButton)
+export default  withRouter(connect(mapStateToProps, mapDispatchToProps)(ProfileButton));
