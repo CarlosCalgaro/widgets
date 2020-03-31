@@ -2,9 +2,11 @@ import { combineReducers } from 'redux';
 import { persistReducer } from 'redux-persist';
 import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import storage from 'redux-persist/lib/storage';
-
 import authentication from 'src/store/reducers/authentication';
-import widgets from 'src/store/reducers/widgets'
+import widgets from 'src/store/reducers/widgets';
+import modals from 'src/store/reducers/modals';
+import user from 'src/store/reducers/users';
+
 const persistConfig = {
     key: 'access_token',
     storage: storage, 
@@ -15,5 +17,7 @@ const persistConfig = {
 
 export const reducers = combineReducers({
     authentication: persistReducer(persistConfig, authentication),
-    widgets: widgets
+    widgets: widgets,
+    modals: modals,
+    user: user
 }); 
