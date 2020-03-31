@@ -1,20 +1,23 @@
 import React from 'react';
 import {
-    Form,
+    Form, 
+    Row,
     Button,
     FormGroup,
     Input,
     InputGroup,
     InputGroupAddon,
     InputGroupText,
-    Label
+    Col
 } from 'reactstrap'
 import Api from 'src/api'
 import classnames from 'classnames'
 import {connect} from "react-redux";
 import * as actions from 'src/store/actions/authentication';
 import {toast} from 'react-toastify'
-class LoginForm extends React.Component {
+import PropTypes from 'prop-types';
+
+class SignInForm extends React.Component {
 
     constructor(props){
         super(props);
@@ -35,7 +38,10 @@ class LoginForm extends React.Component {
         if(response.success){
             toast.success("You have logged in successfully!")
             let {token} = body.data
-            this.props.actions.set_credentials(token)
+            this.props.actions.setCredentials(token)
+            if(this.props.afterLogin){
+                this.props.afterLogin();
+            }
         }else{
             toast.error(body.message)
         }
@@ -98,11 +104,13 @@ class LoginForm extends React.Component {
                     </InputGroup>
                 </FormGroup>
                 <FormGroup check className="mt-3">
-                    <Label check>
-                        <Input defaultChecked type="checkbox" />
-                        <span className="form-check-sign" />
-                        Remember me!
-                    </Label>
+                    <Row>
+                        <Col xs="12" className="text-right">
+                            <a href="#/" onClick={this.props.handleForgotPasswordAction}>
+                                Forgot your password?
+                            </a>
+                        </Col>
+                    </Row>
                 </FormGroup>
                 <div className="text-center">
                     <Button className="my-4" color="primary" type="submit">
@@ -114,18 +122,14 @@ class LoginForm extends React.Component {
     }
 }
 
-
 const mapStateToProps = (state) => {
     return {};
-    // return {
-    //     help: state.helpQuestions.helpForm,
-    // };
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         actions: {
-            set_credentials: (credentials) => {
+            setCredentials: (credentials) => {
                 return dispatch({
                     type: actions.SET_CREDENTIALS,
                     payload: credentials
@@ -134,4 +138,8 @@ const mapDispatchToProps = (dispatch) => {
         }
     }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(LoginForm)
+
+SignInForm.propTypes = {
+    handleForgotPasswordAction: PropTypes.func.isRequired
+};
+export default connect(mapStateToProps, mapDispatchToProps)(SignInForm)

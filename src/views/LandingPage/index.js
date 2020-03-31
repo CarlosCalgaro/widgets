@@ -4,7 +4,7 @@ import {
     Row,
     Col,
 } from 'reactstrap';
-import WidgetsPagination from 'src/views/LandingPage/sections/WidgetsPagination'
+import VisibleWidgetsPagination from 'src/views/LandingPage/sections/VisibleWidgetsPagination'
 
 class LandingPage extends React.Component {
 
@@ -18,7 +18,7 @@ class LandingPage extends React.Component {
                     <p className="text-white mb-3">
                         Take a look of what everybody is doing!
                     </p>
-                    <WidgetsPagination/>
+                    <VisibleWidgetsPagination/>
                 </Col>
             </Row>
         )
