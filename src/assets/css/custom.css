@@ -6,3 +6,10 @@
     width: 100%;
     padding-left: 2em;
 }
+
+.custom-datepicker > input:first-of-type{
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+    border-left: 0 none;
+    border-right: 1px
+}

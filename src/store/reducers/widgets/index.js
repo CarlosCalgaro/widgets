@@ -12,6 +12,11 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 visible: action.payload
             };
+        case actionTypes.REMOVE_VISIBLE_WIDGET:
+            return{
+                ...state,
+                visible: state.visible.filter( widget => widget.id !== action.payload.id),
+            }
         case actionTypes.RESET_VISIBLE_WIDGETS:
             return initialState;
         default:

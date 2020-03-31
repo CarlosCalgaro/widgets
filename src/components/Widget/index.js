@@ -1,38 +1,56 @@
 import React from 'react';
-
-import classnames from "classnames";
-// reactstrap components
+import PropTypes from 'prop-types';
 import {
-  Button,
   Card,
   CardHeader,
   CardBody,
-  Label,
-  FormGroup,
-  Input,
-  FormText,
-  NavItem,
-  NavLink,
-  Nav,
-  Table,
-  TabContent,
-  TabPane,
   Row,
-  CardImg,
-  Col
+  Col,
+  Button
 } from "reactstrap";
-
-
-
+import {Link} from 'react-router-dom'
+import Api from 'src/api'
+import {toast} from 'react-toastify'
+import {connect} from 'react-redux'
+import * as widgetsActions from 'src/store/actions/widgets';
 class Widget extends React.Component {
 
     constructor(props){
         super(props);
-        this.state = {
+        this.destroy = this.destroy.bind(this);
+    }
 
+    async destroy(){
+        try{
+            let response = await Api.Widgets.destroy(this.props.id);
+            let body = response.body;
+            if(response.success){
+                this.props.actions.remove(this.props.id)
+            }else{
+                toast.error(body.message);
+            }
+        }catch(error){
+            console.log(error);
         }
     }
+
     render(){
+        let editButton = ""
+        if(this.props.id){
+            editButton = <Col xs={6} style={{justifyContent: 'flex-end'}} className="d-flex text-right justify-content-right">
+                            <div className="button-wrapper">
+                                {/* <Link to={"/widgets/update/" + this.props.id} 
+                                    className="btn btn-primary btn-round btn-icon">
+                                    <i className="tim-icons icon-pencil" />
+                                </Link> */}
+                                <Button className="btn-round btn-icon my-4" 
+                                        color="danger"
+                                        onClick={this.destroy}>
+                                        <i className="tim-icons icon-trash-simple" />
+                                </Button>   
+                            </div>
+                        </Col>
+        }
         return(
             <div>
                 <Card className="card-coin card-plain">
@@ -45,16 +63,27 @@ class Widget extends React.Component {
                       />
                     <div>
                         {/* <!-- Title --> */}
-                        <h4 className="card-title font-weight-bold mb-2">{this.props.username}</h4>
+                        <h4 className="card-title font-weight-bold mb-2">
+                            <Link to={"/user/" + this.props.userId}>
+                                {this.props.username}
+                            </Link>
+                            
+                        </h4>
                         {/* <!-- Subtitle --> */}
                         <p className="card-text">{this.props.title}</p>
                     </div>
                     </CardHeader>
                     <CardBody className="text-left">
-                        <Row>
+                        <Row className="mb-5">
                             <Col xs={12}>
                                 <span>{this.props.children}</span>
                             </Col>
+                        </Row>
+                        <Row>
+                            <Col xs={6}>
+                                <span>Kind: {this.props.kind}</span>
+                            </Col>
+                            {editButton}
                         </Row>
                     </CardBody>
                   </Card>
@@ -63,45 +92,35 @@ class Widget extends React.Component {
     }
 }
 
-export default Widget
+
+Widget.defaultProps = {
+    id: null
+};
+  
+Widget.propTypes = {
+    name: PropTypes.number
+};
 
 
-{/* <div class="card-body d-flex flex-row">
+const mapStateToProps = (state) => {
+    return {
+        
+    };
+}
 
-<!-- Avatar -->
-<img src="https://mdbootstrap.com/img/Photos/Avatars/avatar-8.jpg" class="rounded-circle mr-3" height="50px" width="50px" alt="avatar">
+const mapDispatchToProps = (dispatch) => {
+    return {
+        actions: {
+            remove: (id) => {
+                return dispatch({
+                    type: widgetsActions.REMOVE_VISIBLE_WIDGET,
+                    payload: {
+                        id: id
+                    }
+                })
+            }
+        }
+    }
+}
 
-<!-- Content -->
-<div>
-
-  <!-- Title -->
-  <h4 class="card-title font-weight-bold mb-2">New spicy meals</h4>
-  <!-- Subtitle -->
-  <p class="card-text"><i class="far fa-clock pr-2"></i>07/24/2018</p>
-
-</div>
-
-</div> */}
-
-
-{/* <div class="container">
-    
-    <br>
-    <div class="card">
-        <div class="row no-gutters">
-            <div class="col-auto">
-                <img src="//placehold.it/200" class="img-fluid" alt="">
-            </div>
-            <div class="col">
-                <div class="card-block px-2">
-                    <h4 class="card-title">Title</h4>
-                    <p class="card-text">Description</p>
-                    <a href="#" class="btn btn-primary">BUTTON</a>
-                </div>
-            </div>
-        </div>
-        <div class="card-footer w-100 text-muted">
-            Footer stating cats are CUTE little animals
-        </div>
-    </div>
-</div> */}
+export default connect(mapStateToProps, mapDispatchToProps)(Widget)
