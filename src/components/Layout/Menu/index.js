@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from "react-router-dom";
 import ProfileButton from 'src/components/Layout/Menu/sections/ProfileButton';
 import ModalForm from 'src/components/ModalForm';
-import LoginForm from 'src/components/Forms/SignInForm';
+import SignInForm from 'src/components/Forms/SignInForm';
 import ForgotPassordForm from 'src/components/Forms/ForgotPasswordForm';
 import RegisterForm from 'src/components/Forms/RegisterForm'
 import {connect} from "react-redux";
@@ -164,7 +164,7 @@ class Menu extends React.Component {
           </div>
         </div>
         <ModalForm description={"Sign in with"} name={"sign_in_modal"}>
-          <LoginForm afterLogin={() => {this.props.actions.toggle("sign_in_modal")}} handleForgotPasswordAction={this.handleForgotPasswordAction}></LoginForm>
+          <SignInForm afterLogin={() => {this.props.actions.toggle("sign_in_modal")}} handleForgotPasswordAction={this.handleForgotPasswordAction}></SignInForm>
         </ModalForm>
 
 
