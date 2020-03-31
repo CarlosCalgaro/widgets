@@ -1,21 +1,10 @@
 import React from 'react';
 import Menu from 'src/components/Layout/Menu';
-import ModalForm from 'src/components/ModalForm';
-import LoginForm from 'src/components/Forms/LoginForm';
 import routes from 'src/config/routes';
 import {Route, Switch} from "react-router-dom";
 import Api from 'src/api'
 
 import {
-    Button,
-    Card,
-    CardHeader,
-    CardBody,
-    CardFooter,
-    CardTitle,
-    ListGroupItem,
-    ListGroup,
-    Container,
     Row,
     Col
   } from "reactstrap";
