@@ -16,6 +16,14 @@ yarn install
 ```
 Run the project with these scripts
 
+## Change in Api port
+If your API is not running on port 3000, change the url in the file: 
+
+widgets/src/api/ApiConstants/index.js
+to 
+```JS
+export const BASE_URL = (process.env.REACT_APP_API_URL !== undefined) ? process.env.REACT_APP_API_URL :  "<new url>"
+```
 ## Available Scripts
 
 In the project directory, you can run:
