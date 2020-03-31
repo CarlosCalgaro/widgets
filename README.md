@@ -1,4 +1,20 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+
+## Requirements 
+    nodejs version v12.7.0+
+    Yarn version v1.19.1+
+
+## Installation Instructions
+
+First, clone the repository 
+```
+git clone -b master https://github.com/CarlosCalgaro/widgets.git
+```
+
+Install the javascript dependencies
+```
+yarn install
+```
+Run the project with these scripts
 
 ## Available Scripts
 
