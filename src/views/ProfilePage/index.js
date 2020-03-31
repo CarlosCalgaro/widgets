@@ -99,7 +99,7 @@ class ProfilePage extends React.Component {
                     <Col lg="8" md="8">
                     <h1 className="profile-title text-left">{user.name}</h1>
                     <h4 className="">Email: {user.email}</h4>
-                    <h4 className="">{moment(user.date_of_birth).format("DD/MM/YYYY")}</h4>
+                    <h4 className="">{user.date_of_birth ? moment(user.date_of_birth).format("DD/MM/YYYY") : ""}</h4>
                     <h4 className="">Active: {user.active ? "Yes" : "No"}</h4>
                     <p className="profile-description">
 
